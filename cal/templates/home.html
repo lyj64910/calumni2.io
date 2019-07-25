@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Calumni</title>
+
+<style> 
+        *{margin:0;padding:0;} 
+        ul,li{list-style:none;} 
+        .slide{height:300px;overflow:hidden;position:relative;} 
+        .slide ul{width:calc(100% * 4);display:flex;transition:1s;} 
+        .slide li{width:calc(100% / 4);height:300px;} 
+        /* .slide li:nth-child(1){background:#ffa;} 
+        .slide li:nth-child(2){background:#faa;} 
+        .slide li:nth-child(3){background:#afa;} 
+        .slide li:nth-child(4){background:#aaf;}  */
+        
+        .slide input{display:none;} 
+        .slide .bullet{position:absolute;bottom:20px;left:0;right:0;text-align:center;z-index:10;} 
+        .slide .bullet label{width:10px;height:10px;border-radius:10px;border:2px solid #666;display:inline-block;background:#fff;font-size:0;transition:0.5s;cursor:pointer;} 
+     
+        /* 슬라이드 조작 */ 
+        #pos1:checked ~ ul{margin-left:0;} 
+        #pos2:checked ~ ul{margin-left:-100%;} 
+        #pos3:checked ~ ul{margin-left:-200%;} 
+        #pos4:checked ~ ul{margin-left:-300%;} 
+        
+     
+        /* bullet 조작 */ 
+        #pos1:checked ~ .bullet label:nth-child(1), 
+        #pos2:checked ~ .bullet label:nth-child(2), 
+        #pos3:checked ~ .bullet label:nth-child(3), 
+        #pos4:checked ~ .bullet label:nth-child(4){background:#666;},
+        
+
+        /* 로고 */
+        img.logo{
+          position:absolute;
+          /* left:100px; */
+          top:100px;
+          margin-left: auto;
+          border-style: solid; 
+          border:0;
+        }
+      </style> 
+
+</head>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+
+  <!-- 배너 슬라이드 -->
+  <div class="slide"> 
+    <input type="radio" name="pos" id="pos1" checked> 
+    <input type="radio" name="pos" id="pos2"> 
+    <input type="radio" name="pos" id="pos3"> 
+    <input type="radio" name="pos" id="pos4"> 
+    <ul> 
+      <li>
+        <img src="http://www.ccherald.kr/news/photo/201711/742_709_351.jpg" width="200" height="200" class="logo"><br>위치 조정 중---추후에---
+        
+      </li> 
+      <li>
+        <img src="https://pds.joins.com/news/component/htmlphoto_mmdata/201902/14/4cfe5c49-facc-4f98-8955-23772078dfc2.jpg" width="100" height="100">
+      </li> 
+      <li></li> 
+      <li></li> 
+    </ul> 
+    <p class="bullet"> 
+      <label for="pos1">1</label> 
+      <label for="pos2">2</label> 
+      <label for="pos3">3</label> 
+      <label for="pos4">4</label> 
+    </p> 
+  </div>  
+
+        {% for cal in cals %}
+        
+        <h1><a href="{% url 'detail' cal.id %}">{{ cal.title }}</h1>
+        <h2><a href="{% url 'detail' cal.id %}">{{ cal.write }}</a></h2>
+        <br>
+        {% endfor %}
+        
+  {% endblock %}
+</body>
+</html>
